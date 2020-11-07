@@ -1,0 +1,20 @@
+mdvl-gpdfx (1.5.1) stable; urgency=medium
+
+  * Replace previous repository that had the GTK-2.0 variant with the
+    gpdf-ng GTK-3.0 variant, because the other version turned out to
+    no longer run on Debian 10+ due to missing python-poppler library.
+
+ -- Linux-Fan, Ma_Sys.ma <Ma_Sys.ma@web.de>  Sat, 07 Nov 2020 22:14:38 +0100
+
+mdvl-gpdfx (1.5.0) stable; urgency=medium
+
+  * Update version to increase version above the Ma_Sys.ma-internally used
+    MDPC 1.0 package which is at 1.0.3 as of now.
+
+ -- Linux-Fan, Ma_Sys.ma <Ma_Sys.ma@web.de>  Fri, 07 Aug 2020 00:52:39 +0200
+
+mdvl-gpdfx (1.0.0) stable; urgency=medium
+
+  * Package created with MDPC 2
+
+ -- Linux-Fan, Ma_Sys.ma <Ma_Sys.ma@web.de>  Fri, 07 Aug 2020 00:52:33 +0200

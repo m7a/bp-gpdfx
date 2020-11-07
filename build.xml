@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="build">
+
+<!-- APPLICATION METADATA -->
+<property name="masysma.target"  value="_"/> 
+<property name="mdpc.name"       value="mdvl-gpdfx"/>
+<property name="mdpc.section"    value="python"/>
+<property name="mdpc.descrs"     value="Graphical gpdfx-ng tool to extract parts of a PDF."/>
+<property name="mdpc.arch"       value="all"/>
+<property name="mdpc.depends"    value="python, texlive-extra-utils, texlive, gir1.2-poppler-0.18, libpoppler-glib8"/>
+<property name="mdpc.descrl">
+ Similar to `pdfscissors` this utility allows the user to select a portion of a
+ PDF file. Unlike `pdfscissors`, however, this tool does not reduce all pages to
+ the selected size but instead allows the user to extract a single selection to
+ a new PDF file. This is handy for extracting graphics from multipage PDF files.
+ .
+ This version is gpdfx-ng as obtained from https://github.com/yishilin14/gpdf-ng
+</property>
+<property name="mdpc.copyright.file"><![CDATA[
+License: GPL-2+
+ This program is free software; you can redistribute it and/or modify it under
+ the terms of the GNU General Public License as published by the Free Software
+ Foundation; either version 2 of the License, or (at your option) any later
+ version.
+ .
+ This program is distributed in the hope that it will be useful, but WITHOUT
+ ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ details.
+ .
+ You should have received a copy of the GNU General Public License along with
+ this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+ Place, Suite 330, Boston, MA 02111-1307 USA
+ .
+ Further information about the GNU GPL is available at:
+ http://www.gnu.org/copyleft/gpl.ja.html
+
+Files: gpdfx
+Copyright:
+ Copyright (C) 2011 Christoph Lehner, Nathan Goldschmidt
+ Copyright (C) 2013 Oz Nahum  <nahumoz@gmail.com>
+ Copyright (C) 2015 Yishi Lin <https://github.com/yishilin14>
+License: GPL-2+
+
+Files: README.md build.xml
+Copyright:
+ Copyright (C) 2020 Ma_Sys.ma <Ma_Sys.ma@web.de>
+License: GPL-2+
+]]></property>
+
+<property name="mdpc.file.install" value="gpdfx /usr/bin"/>
+
+<!-- PART OF TPL HERE FOR USE IN BUILD -->
+<property environment="env"/>
+<condition property="masysma.internal.includepath.rel" value="${env.MDVL_CI_PHOENIX_ROOT}" else=".."><isset property="env.MDVL_CI_PHOENIX_ROOT"/></condition>
+<property name="masysma.internal.includepath" location="${masysma.internal.includepath.rel}"/>
+
+<!-- SPECIFIC BUILD -->
+<target name="download">
+	<masysma_require_artifact
+			masysmaartifact="gpdfx-ng.git"
+			masysmaatarget="build"
+			masysmaadef="https://github.com/yishilin14/gpdfx-ng"/>
+</target>
+
+<target name="build" depends="download">
+	<copy tofile="gpdfx" file="build/src/gpdfx-ng"/>
+</target>
+
+<target name="clean"><delete dir="build"/></target>
+<target name="dist-clean" depends="clean"><delete file="gpdfx"/></target>
+
+<!-- CI INTEGRATION -->
+<target name="package_triggered" depends="package">
+	<property name="masysma.ci.trigger" value="newver"/>
+</target>
+
+<!-- TPL IMPORT (PARTIALLY GIVEN ABOVE) -->
+<property name="masysma.internal.loadpath" value="${masysma.internal.includepath}/co-build/ant-build-template.xml"/>
+<condition property="masysma.internal.load" value="file://${masysma.internal.loadpath}" else="https://raw.githubusercontent.com/m7a/co-build/master/ant-build-template.xml"><resourceexists><file file="${masysma.internal.loadpath}"/></resourceexists></condition>
+<import><url url="${masysma.internal.load}"/></import>
+
+</project>
