@@ -7,7 +7,7 @@
 <property name="mdpc.section"    value="python"/>
 <property name="mdpc.descrs"     value="Graphical gpdfx-ng tool to extract parts of a PDF."/>
 <property name="mdpc.arch"       value="all"/>
-<property name="mdpc.depends"    value="python, texlive-extra-utils, texlive, gir1.2-poppler-0.18, libpoppler-glib8"/>
+<property name="mdpc.depends"    value="python3, texlive-extra-utils, texlive, gir1.2-poppler-0.18, libpoppler-glib8"/>
 <property name="mdpc.descrl">
  Similar to `pdfscissors` this utility allows the user to select a portion of a
  PDF file. Unlike `pdfscissors`, however, this tool does not reduce all pages to
@@ -65,6 +65,8 @@ License: GPL-2+
 
 <target name="build" depends="download">
 	<copy tofile="gpdfx" file="build/src/gpdfx-ng"/>
+	<replace file="gpdfx" token="#!/usr/bin/env python"
+						value="#!/usr/bin/python3"/>
 </target>
 
 <target name="clean"><delete dir="build"/></target>
